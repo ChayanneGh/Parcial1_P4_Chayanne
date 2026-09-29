@@ -7,7 +7,7 @@ namespace Parcial1_P4_Chayanne.Controllers
     public class NumberController : ControllerBase
     {
         [HttpGet("{Number}")]
-        public IActionResult Index([FromQuery] int Number)
+        public IActionResult Index([FromRoute] int Number)
         {
             return Ok(Number + Number);
         }
