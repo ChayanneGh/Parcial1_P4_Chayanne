@@ -16,6 +16,15 @@ namespace Parcial1_P4_Chayanne.Controllers
             return Ok(Number + Number);
         }
 
+        /*
+        [HttpGet("{Number}")]
+        public IActionResult Index([FromRoute] int Number)
+        {
+            NumberRecordSet number = new NumberRecordSet(Number, Number + Number);
+            return Ok(number);
+        }
+        */
+
         private readonly NumberService _numberService;
 
         public NumberController(NumberService confle)
