@@ -26,7 +26,7 @@ namespace Parcial1_P4_Chayanne.Services
 
             await conexion.ExecuteAsync(query);
         }
-        public async Task<bool> SaveAsync(NumberRecord number)
+        public async Task<bool> SaveAsync(NumberRecordSet number)
         {
             const string query = @"INSERT INTO Numeros (Fecha, Numero, Resultado)" +
                                 " VALUES (DATETIME('now'), @Numero, @Resultado)";
@@ -36,7 +36,7 @@ namespace Parcial1_P4_Chayanne.Services
             int filasAfectadas = await conexion.ExecuteAsync(query, number);
             return filasAfectadas > 0;
         }
-        public async Task<bool> UpdateAsync(NumberRecord number)
+        public async Task<bool> UpdateAsync(NumberRecordSet number)
         {
             const string query = @"UPDATE Numeros Set" +
                                 " Fecha = DATETIME('now')," +
@@ -49,23 +49,23 @@ namespace Parcial1_P4_Chayanne.Services
             int filasAfectadas = await conexion.ExecuteAsync(query, number);
             return filasAfectadas > 0;
         }
-        public async Task<NumberRecord?> GetByIdAsync(int Id)
+        public async Task<NumberRecordGet?> GetByIdAsync(int Id)
         {
             const string query = "SELECT Id, Fecha, Numero, Resultado" +
                                 " FROM Numeros WHERE Id = @Id";
 
             using var conexion = createConection;
 
-            return await conexion.QueryFirstOrDefaultAsync<NumberRecord>(query, new { Id } );
+            return await conexion.QueryFirstOrDefaultAsync<NumberRecordGet>(query, new { Id } );
         }
-        public async Task<IEnumerable<NumberRecord>> GetListAsync()
+        public async Task<IEnumerable<NumberRecordGet>> GetListAsync()
         {
             const string query = "SELECT Id, Fecha, Numero, Resultado" +
                                 " FROM Numeros";
 
             using var conexion = createConection;
 
-            return await conexion.QueryAsync<NumberRecord>(query);
+            return await conexion.QueryAsync<NumberRecordGet>(query);
         }
 
 
