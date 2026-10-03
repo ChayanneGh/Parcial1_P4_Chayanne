@@ -32,14 +32,14 @@ public class NumberController : ControllerBase
         _numberService = confle;
     }
 
-    [HttpGet]
+    [HttpGet("db/get")]
     public async Task<IActionResult> GetList()
     {
         var table = await _numberService.GetListAsync();
         return Ok(table);
     }
 
-    [HttpGet("{Id}")]
+    [HttpGet("db/get/{Id}")]
     public async Task<IActionResult> GetById(int Id)
     {
         var row = await _numberService.GetByIdAsync(Id);
@@ -50,7 +50,7 @@ public class NumberController : ControllerBase
         return Ok(row);
     }
 
-    [HttpPost]
+    [HttpPost("db/post/{number}")]
     public async Task<IActionResult> Save([FromBody] NumberRecordSet number)
     {
         if (number == null) { return NotFound(); }
@@ -66,7 +66,7 @@ public class NumberController : ControllerBase
         });
     }
 
-    [HttpPut("{Id}")]
+    [HttpPut("db/update/{Id}/{number}")]
     public async Task<IActionResult> Update(int Id, [FromBody] NumberRecordSet number)
     {
         var row = await _numberService.GetByIdAsync(Id);
