@@ -1,6 +1,14 @@
 using Parcial1_P4_Chayanne.Services;
+using Scalar.AspNetCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 // Add services to the container.
 builder.Services.AddScoped<NumberService>();
@@ -16,10 +24,9 @@ using (var scope = app.Services.CreateScope()) //inicializa DbSqlite_Ds y crea l
     await svc.InitializeAsync();
 }
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+
+app.MapOpenApi();
+app.MapScalarApiReference();
 
 app.UseHttpsRedirection();
 
