@@ -1,14 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.Sqlite;
 using Parcial1_P4_Chayanne.Models;
 using Parcial1_P4_Chayanne.Services;
-using SQLitePCL;
 
 namespace Parcial1_P4_Chayanne.Controllers;
 
 [ApiController]
 [Route("api/[Controller]")]
-public class NumberController : ControllerBase
+public class NumberController(NumberService numberService) : ControllerBase
 {
     [HttpGet("{Number}")]
     public IActionResult Index([FromRoute] int Number)
@@ -16,21 +14,7 @@ public class NumberController : ControllerBase
         return Ok(Number + Number);
     }
 
-    /*
-    [HttpGet("{Number}")]
-    public IActionResult Index([FromRoute] int Number)
-    {
-        NumberRecordSet number = new NumberRecordSet(Number, Number + Number);
-        return Ok(number);
-    }
-    */
-
     private readonly NumberService _numberService;
-
-    public NumberController(NumberService confle)
-    {
-        _numberService = confle;
-    }
 
     [HttpGet]
     public async Task<IActionResult> GetList()
