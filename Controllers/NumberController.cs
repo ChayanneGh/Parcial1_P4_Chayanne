@@ -6,15 +6,19 @@ namespace Parcial1_P4_Chayanne.Controllers;
 
 [ApiController]
 [Route("api/[Controller]")]
-public class NumberController(NumberService numberService) : ControllerBase
+public class NumberController : ControllerBase
 {
-    [HttpGet("{Number}")]
+    private readonly NumberService _numberService;
+
+    public NumberController(NumberService numberService)
+    {
+        _numberService = numberService;
+    }
+    [HttpGet("{Number:int}")]
     public IActionResult Index([FromRoute] int Number)
     {
         return Ok(Number + Number);
     }
-
-    private readonly NumberService _numberService;
 
     [HttpGet]
     public async Task<IActionResult> GetList()

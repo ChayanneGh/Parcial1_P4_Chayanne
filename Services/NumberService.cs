@@ -3,10 +3,18 @@ using Microsoft.Data.Sqlite;
 using Parcial1_P4_Chayanne.Models;
 namespace Parcial1_P4_Chayanne.Services;
 
-public class NumberService (IConfiguration confle)
+public class NumberService
 {
     private readonly string _conectionString;
     private SqliteConnection createConection => new SqliteConnection(_conectionString);
+
+    public NumberService(IConfiguration configuration)
+    {
+        // Use the project-specific key 'DbSqlite_Ds' if present, otherwise fall back.
+        _conectionString = configuration.GetConnectionString("DbSqlite_Ds")
+            ?? configuration["ConnectionStrings:DbSqlite_Ds"]
+            ?? "Data Source=numeros.db";
+    }
 
     public async Task InitializeAsync()
     {
